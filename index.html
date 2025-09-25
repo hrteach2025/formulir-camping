@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Kesiapan Camping</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans p-6 md:p-10 antialiased">
+    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl p-8 lg:p-12 border border-gray-200">
+        <h1 class="text-3xl lg:text-4xl font-extrabold text-center text-gray-800 mb-2">Formulir Kesiapan Peserta</h1>
+        <p class="text-center text-gray-500 mb-10 text-lg">Camping Perusahaan</p>
+
+        <form id="camping-form" class="space-y-8">
+            <div class="space-y-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">1. Data Diri Peserta</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                    <div class="relative">
+                        <label for="nama_lengkap" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                        <div id="dropdown-nama-wrapper" class="relative">
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors cursor-pointer" placeholder="Pilih nama lengkap" readonly required>
+                            <ul id="dropdown-nama-list" class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg shadow-lg mt-2 hidden max-h-48 overflow-y-auto z-50"></ul>
+                        </div>
+                        <span id="loading-nama" class="text-sm text-gray-500 mt-1 block">Memuat...</span>
+                    </div>
+                    <div>
+                        <label for="posisi_divisi" class="block text-sm font-medium text-gray-700 mb-1">Posisi/Divisi</label>
+                        <input type="text" id="posisi_divisi" name="posisi_divisi" class="w-full px-4 py-2 bg-gray-200 border border-gray-300 rounded-lg shadow-sm text-gray-500 cursor-not-allowed" readonly required>
+                        <span id="loading-posisi" class="text-sm text-gray-500 mt-1 block">Memuat...</span>
+                    </div>
+                    <div>
+                        <label for="nomor_kontak_darurat" class="block text-sm font-medium text-gray-700 mb-1">Nomor Kontak Darurat</label>
+                        <input type="text" id="nomor_kontak_darurat" name="nomor_kontak_darurat" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
+                    </div>
+                    <div>
+                        <label for="hubungan_kontak" class="block text-sm font-medium text-gray-700 mb-1">Hubungan dengan kontak darurat</label>
+                        <input type="text" id="hubungan_kontak" name="hubungan_kontak" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">2. Informasi Kesehatan & Medis</h2>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki kondisi medis atau riwayat penyakit kronis yang perlu kami ketahui? (contoh: asma, diabetes, hipertensi)</label>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="kondisi_medis" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_medis').classList.remove('hidden')">
+                                <span class="ml-2 text-gray-700">Ya</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="kondisi_medis" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_medis').classList.add('hidden')">
+                                <span class="ml-2 text-gray-700">Tidak</span>
+                            </label>
+                        </div>
+                        <div id="penjelasan_medis" class="mt-2 hidden">
+                            <label for="penjelasan_medis_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan kondisi medis atau riwayat penyakit Anda</label>
+                            <input type="text" id="penjelasan_medis_input" name="penjelasan_medis" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki alergi? (contoh: alergi makanan, debu, serangga)</label>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="alergi" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_alergi').classList.remove('hidden')">
+                                <span class="ml-2 text-gray-700">Ya</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="alergi" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_alergi').classList.add('hidden')">
+                                <span class="ml-2 text-gray-700">Tidak</span>
+                            </label>
+                        </div>
+                        <div id="penjelasan_alergi" class="mt-2 hidden">
+                            <label for="penjelasan_alergi_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan alergi Anda</label>
+                            <input type="text" id="penjelasan_alergi_input" name="penjelasan_alergi" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda sedang dalam pengobatan rutin?</label>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="pengobatan_rutin" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_obat').classList.remove('hidden')">
+                                <span class="ml-2 text-gray-700">Ya</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="pengobatan_rutin" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_obat').classList.add('hidden')">
+                                <span class="ml-2 text-gray-700">Tidak</span>
+                            </label>
+                        </div>
+                        <div id="penjelasan_obat" class="mt-2 hidden">
+                            <label for="penjelasan_obat_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan obat yang dikonsumsi</label>
+                            <input type="text" id="penjelasan_obat_input" name="pengobatan_rutin" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki pembatasan diet atau kebutuhan makanan khusus? (contoh: vegetarian, vegan)</label>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="kebutuhan_makanan" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_makanan').classList.remove('hidden')">
+                                <span class="ml-2 text-gray-700">Ya</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="kebutuhan_makanan" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_makanan').classList.add('hidden')">
+                                <span class="ml-2 text-gray-700">Tidak</span>
+                            </label>
+                        </div>
+                        <div id="penjelasan_makanan" class="mt-2 hidden">
+                            <label for="penjelasan_makanan_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan kebutuhan makanan khusus Anda</label>
+                            <input type="text" id="penjelasan_makanan_input" name="kebutuhan_makanan" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">3. Kesiapan Fisik & Logistik</h2>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda nyaman dengan aktivitas fisik sedang seperti berjalan kaki atau mendaki ringan selama 1-2 jam?</label>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="aktivitas_fisik" value="Ya" class="form-radio text-blue-600 h-4 w-4" required>
+                                <span class="ml-2 text-gray-700">Ya</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="aktivitas_fisik" value="Tidak" class="form-radio text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Tidak</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki pengalaman camping sebelumnya?</label>
+                        <div class="flex items-center space-x-4">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="pengalaman_camping" value="Ya, sering" class="form-radio text-blue-600 h-4 w-4" required>
+                                <span class="ml-2 text-gray-700">Ya, sering</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="pengalaman_camping" value="Ya, beberapa kali" class="form-radio text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Ya, beberapa kali</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="pengalaman_camping" value="Tidak" class="form-radio text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Tidak</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Perlengkapan pribadi yang Anda miliki (Centang semua yang berlaku)</label>
+                        <div class="space-y-2">
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="perlengkapan[]" value="Jaket tebal" class="form-checkbox rounded text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Jaket tebal</span>
+                            </label>
+                            <br>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="perlengkapan[]" value="Sepatu bot/sepatu hiking" class="form-checkbox rounded text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Sepatu bot/sepatu hiking</span>
+                            </label>
+                            <br>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="perlengkapan[]" value="Pakaian ganti yang cukup" class="form-checkbox rounded text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Pakaian ganti yang cukup</span>
+                            </label>
+                            <br>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="perlengkapan[]" value="Obat-obatan pribadi" class="form-checkbox rounded text-blue-600 h-4 w-4">
+                                <span class="ml-2 text-gray-700">Obat-obatan pribadi (jika ada)</span>
+                            </label>
+                            <br>
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" name="perlengkapan[]" value="Lainnya" id="lainnya_checkbox" class="form-checkbox rounded text-blue-600 h-4 w-4" onclick="document.getElementById('lainnya_input').classList.toggle('hidden')">
+                                <span class="ml-2 text-gray-700">Lainnya (mohon sebutkan)</span>
+                            </label>
+                            <div id="lainnya_input" class="mt-2 hidden">
+                                <input type="text" name="perlengkapan_lainnya" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">4. Pernyataan & Persetujuan</h2>
+                <div class="flex items-start">
+                    <input type="checkbox" id="persetujuan" name="persetujuan" class="form-checkbox rounded-md text-blue-600 h-5 w-5 mt-1 focus:ring-2 focus:ring-blue-500" required>
+                    <label for="persetujuan" class="ml-2 text-sm text-gray-700">Saya setuju bahwa informasi yang saya berikan adalah benar dan lengkap, dan saya bersedia mengikuti semua peraturan yang telah ditetapkan.</label>
+                </div>
+            </div>
+            
+            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform transform hover:scale-105">Kirim Formulir</button>
+        </form>
+    </div>
+    
+    <div id="modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-60 hidden">
+        <div class="bg-white rounded-lg p-8 shadow-2xl max-w-sm w-full text-center">
+            <div id="loading" class="mb-4">
+                <svg class="animate-spin h-10 w-10 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <p class="mt-4 text-gray-600">Sedang mengirim data...</p>
+            </div>
+            
+            <div id="success-message" class="hidden">
+                <svg class="h-16 w-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-2xl font-bold text-gray-800 mt-4">Sukses!</h3>
+                <p class="mt-2 text-gray-600">Data Anda berhasil disimpan.</p>
+                <button id="close-modal-btn" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">Tutup</button>
+            </div>
+
+            <div id="error-message" class="hidden">
+                <svg class="h-16 w-16 text-red-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h3 class="text-2xl font-bold text-gray-800 mt-4">Terjadi Kesalahan</h3>
+                <p class="mt-2 text-gray-600">Mohon coba kembali.</p>
+                <button id="close-error-modal-btn" class="mt-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">Tutup</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
