@@ -6,269 +6,373 @@
     <title>Formulir Kesiapan Camping</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Latar belakang abu-abu kebiruan sangat lembut */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800; /* Extra-bold */
+        }
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700; /* Bold */
+            color: #334155; /* Warna teks abu-abu gelap untuk judul bagian */
+        }
+        label {
+            color: #334155; /* Warna teks label abu-abu gelap */
+        }
+
+        /* Styling input text, password (contoh: nomor kontak), dropdown */
+        .ui-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #ffffff;
+            border: 1px solid #a7d9f7; /* Border biru muda yang lebih dekat ke referensi */
+            border-radius: 0.5rem; /* Sudut membulat */
+            transition: all 0.2s ease-in-out;
+            color: #1f2937;
+            box-shadow: none; /* Hilangkan shadow default */
+        }
+        .ui-input:focus {
+            outline: none;
+            border-color: #3b82f6; /* Border biru saat fokus */
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); /* Ring focus lembut */
+        }
+        .ui-input[readonly] {
+            background-color: #ffffff;
+            cursor: pointer;
+            color: #1f2937;
+        }
+
+        /* Dropdown custom (untuk mengganti ikon default browser) */
+        .ui-dropdown-wrapper {
+            position: relative;
+        }
+        .ui-dropdown-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 0.5rem;
+            height: 0.5rem;
+            border-bottom: 2px solid #3b82f6; /* Warna biru untuk ikon panah */
+            border-right: 2px solid #3b82f6;
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        /* Checkbox custom */
+        .ui-checkbox {
+            appearance: none; /* Hilangkan default checkbox */
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: #ffffff;
+            border: 1px solid #a7d9f7;
+            border-radius: 0.25rem; /* Sudut sedikit membulat */
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0; /* Pastikan tidak mengecil */
+        }
+        .ui-checkbox:checked {
+            background-color: #3b82f6; /* Latar belakang biru saat tercentang */
+            border-color: #3b82f6;
+        }
+        .ui-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 0.25rem;
+            top: 0.25rem;
+            width: 0.3rem;
+            height: 0.6rem;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        /* Radio custom */
+        .ui-radio {
+            appearance: none; /* Hilangkan default radio */
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: #ffffff;
+            border: 1px solid #a7d9f7;
+            border-radius: 50%; /* Bentuk lingkaran */
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .ui-radio:checked {
+            border-color: #3b82f6; /* Border biru saat terpilih */
+        }
+        .ui-radio:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0.6rem;
+            height: 0.6rem;
+            background-color: #3b82f6; /* Titik biru di tengah */
+            border-radius: 50%;
+        }
+
+        /* Tombol Submit */
+        .ui-button-primary {
+            width: 100%;
+            background-color: #3b82f6; /* Biru solid */
+            color: white;
+            font-weight: 600; /* Semi-bold */
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .ui-button-primary:hover {
+            background-color: #2563eb; /* Biru lebih gelap saat hover */
+        }
+        .ui-button-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Styling dropdown list */
+        .ui-dropdown-list {
+            background-color: #ffffff;
+            border: 1px solid #a7d9f7;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-top: 0.5rem;
+            max-height: 12rem;
+            overflow-y: auto;
+            z-index: 50;
+            position: absolute;
+            width: 100%;
+        }
+        .ui-dropdown-list li {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            color: #334155;
+            transition: background-color 0.1s ease-in-out;
+        }
+        .ui-dropdown-list li:hover {
+            background-color: #e0f2fe; /* Background biru muda saat hover */
+            color: #3b82f6; /* Teks biru saat hover */
+        }
+        .ui-dropdown-list li.selected {
+            background-color: #e0f2fe; /* Background biru muda untuk yang terpilih */
+            color: #3b82f6; /* Teks biru untuk yang terpilih */
+            font-weight: 500;
         }
     </style>
 </head>
-<body class="bg-gray-100 font-sans p-6 md:p-10 antialiased">
-    <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-2xl p-8 lg:p-12 border border-gray-200">
-        <h1 class="text-3xl lg:text-4xl font-extrabold text-center text-gray-800 mb-2">Formulir Kesiapan Peserta</h1>
-        <p class="text-center text-gray-500 mb-10 text-lg">TEACH Scouting Jamboree</p>
+<body class="antialiased">
 
-        <form id="camping-form" class="space-y-8">
-            <div class="space-y-6">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">1. Data Diri Peserta</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+    <header class="w-full max-w-2xl text-center mb-8 mt-4">
+        <h1 class="text-3xl sm:text-4xl text-gray-800 tracking-tight mb-2">Formulir Kesiapan Peserta</h1>
+        <p class="text-lg text-gray-600 font-medium">TEACH Scouting Jamboree</p>
+    </header>
+
+    <main class="w-full max-w-2xl px-4"> <form id="camping-form" class="space-y-8">
+
+            <section class="space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-bold pb-2">
+                    1. Data Diri Peserta
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="relative">
-                        <label for="nama_lengkap" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                        <div id="dropdown-nama-wrapper" class="relative">
-                            <input type="text" id="nama_lengkap" name="nama_lengkap" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors cursor-pointer" placeholder="Pilih nama lengkap" readonly required>
-                            <ul id="dropdown-nama-list" class="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg shadow-lg mt-2 hidden max-h-48 overflow-y-auto z-50"></ul>
+                        <label for="nama_lengkap" class="block text-sm font-medium mb-1">Nama Lengkap</label>
+                        <div id="dropdown-nama-wrapper" class="ui-dropdown-wrapper">
+                            <input type="text" id="nama_lengkap" name="nama_lengkap" class="ui-input cursor-pointer" placeholder="Pilih nama lengkap" readonly required>
+                            <ul id="dropdown-nama-list" class="ui-dropdown-list hidden"></ul>
                         </div>
                         <span id="loading-nama" class="text-sm text-gray-500 mt-1 block">Memuat...</span>
                     </div>
                     <div>
-                        <label for="posisi_divisi" class="block text-sm font-medium text-gray-700 mb-1">Posisi/Divisi</label>
-                        <input type="text" id="posisi_divisi" name="posisi_divisi" class="w-full px-4 py-2 bg-gray-200 border border-gray-300 rounded-lg shadow-sm text-gray-500 cursor-not-allowed" readonly required>
+                        <label for="posisi_divisi" class="block text-sm font-medium mb-1">Posisi/Divisi</label>
+                        <input type="text" id="posisi_divisi" name="posisi_divisi" class="ui-input" readonly required>
                         <span id="loading-posisi" class="text-sm text-gray-500 mt-1 block">Memuat...</span>
                     </div>
                     <div>
-                        <label for="nomor_kontak_darurat" class="block text-sm font-medium text-gray-700 mb-1">Nomor Kontak Darurat</label>
-                        <input type="text" id="nomor_kontak_darurat" name="nomor_kontak_darurat" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
+                        <label for="nomor_kontak_darurat" class="block text-sm font-medium mb-1">Nomor Kontak Darurat</label>
+                        <input type="text" id="nomor_kontak_darurat" name="nomor_kontak_darurat" class="ui-input" required>
                     </div>
                     <div>
-                        <label for="hubungan_kontak" class="block text-sm font-medium text-gray-700 mb-1">Hubungan dengan kontak darurat</label>
-                        <input type="text" id="hubungan_kontak" name="hubungan_kontak" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" required>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-6">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">2. Informasi Kesehatan & Medis</h2>
-                
-                <div class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki kondisi medis atau riwayat penyakit kronis yang perlu kami ketahui? (contoh: asma, diabetes, hipertensi)</label>
-                        <div class="flex items-center space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="kondisi_medis" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_medis').classList.remove('hidden')">
-                                <span class="ml-2 text-gray-700">Ya</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="kondisi_medis" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_medis').classList.add('hidden')">
-                                <span class="ml-2 text-gray-700">Tidak</span>
-                            </label>
-                        </div>
-                        <div id="penjelasan_medis" class="mt-2 hidden">
-                            <label for="penjelasan_medis_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan kondisi medis atau riwayat penyakit Anda</label>
-                            <input type="text" id="penjelasan_medis_input" name="penjelasan_medis" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki alergi? (contoh: alergi makanan, debu, serangga)</label>
-                        <div class="flex items-center space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="alergi" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_alergi').classList.remove('hidden')">
-                                <span class="ml-2 text-gray-700">Ya</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="alergi" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_alergi').classList.add('hidden')">
-                                <span class="ml-2 text-gray-700">Tidak</span>
-                            </label>
-                        </div>
-                        <div id="penjelasan_alergi" class="mt-2 hidden">
-                            <label for="penjelasan_alergi_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan alergi Anda</label>
-                            <input type="text" id="penjelasan_alergi_input" name="penjelasan_alergi" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda sedang dalam pengobatan rutin?</label>
-                        <div class="flex items-center space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="pengobatan_rutin" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_obat').classList.remove('hidden')">
-                                <span class="ml-2 text-gray-700">Ya</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="pengobatan_rutin" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_obat').classList.add('hidden')">
-                                <span class="ml-2 text-gray-700">Tidak</span>
-                            </label>
-                        </div>
-                        <div id="penjelasan_obat" class="mt-2 hidden">
-                            <label for="penjelasan_obat_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan obat yang dikonsumsi</label>
-                            <input type="text" id="penjelasan_obat_input" name="penjelasan_obat" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda memiliki pembatasan diet atau kebutuhan makanan khusus? (contoh: vegetarian, vegan)</label>
-                        <div class="flex items-center space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="kebutuhan_makanan" value="Ya" class="form-radio text-blue-600 h-4 w-4" onclick="document.getElementById('penjelasan_makanan').classList.remove('hidden')">
-                                <span class="ml-2 text-gray-700">Ya</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="kebutuhan_makanan" value="Tidak" class="form-radio text-blue-600 h-4 w-4" checked onclick="document.getElementById('penjelasan_makanan').classList.add('hidden')">
-                                <span class="ml-2 text-gray-700">Tidak</span>
-                            </label>
-                        </div>
-                        <div id="penjelasan_makanan" class="mt-2 hidden">
-                            <label for="penjelasan_makanan_input" class="block text-sm font-medium text-gray-700 mb-1">Jika Ya, mohon jelaskan kebutuhan makanan khusus Anda</label>
-                            <input type="text" id="penjelasan_makanan_input" name="penjelasan_makanan" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
-                        </div>
+                        <label for="hubungan_kontak" class="block text-sm font-medium mb-1">Hubungan dengan kontak darurat</label>
+                        <input type="text" id="hubungan_kontak" name="hubungan_kontak" class="ui-input" required>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="space-y-6">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">3. Kesiapan Fisik & Logistik</h2>
-                
-                <div class="space-y-6">
-                    <div>
-                        <label for="terakhir_camping" class="block text-sm font-medium text-gray-700 mb-1">Kapan terakhir kali melakukan Camping? (Tulis tahunnya)</label>
-                        <input type="text" id="terakhir_camping" name="terakhir_camping" placeholder="Contoh: 2016" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+            <section class="space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-bold pb-2">
+                    2. Informasi Kesehatan & Medis
+                </h2>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Apakah Anda memiliki kondisi medis atau riwayat penyakit kronis?</label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="kondisi_medis" value="Ya" class="ui-radio" onclick="document.getElementById('penjelasan_medis').classList.remove('hidden')">
+                            <span class="ml-2 text-gray-700">Ya</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="kondisi_medis" value="Tidak" class="ui-radio" checked onclick="document.getElementById('penjelasan_medis').classList.add('hidden')">
+                            <span class="ml-2 text-gray-700">Tidak</span>
+                        </label>
                     </div>
+                    <div id="penjelasan_medis" class="mt-2 hidden">
+                        <label for="penjelasan_medis_input" class="block text-sm font-medium mb-1">Jika Ya, jelaskan kondisi medis Anda</label>
+                        <input type="text" id="penjelasan_medis_input" name="penjelasan_medis" class="ui-input">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Apakah Anda memiliki alergi?</label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="alergi" value="Ya" class="ui-radio" onclick="document.getElementById('penjelasan_alergi').classList.remove('hidden')">
+                            <span class="ml-2 text-gray-700">Ya</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="alergi" value="Tidak" class="ui-radio" checked onclick="document.getElementById('penjelasan_alergi').classList.add('hidden')">
+                            <span class="ml-2 text-gray-700">Tidak</span>
+                        </label>
+                    </div>
+                    <div id="penjelasan_alergi" class="mt-2 hidden">
+                        <label for="penjelasan_alergi_input" class="block text-sm font-medium mb-1">Jika Ya, jelaskan alergi Anda</label>
+                        <input type="text" id="penjelasan_alergi_input" name="penjelasan_alergi" class="ui-input">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Apakah Anda sedang dalam pengobatan rutin?</label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="pengobatan_rutin" value="Ya" class="ui-radio" onclick="document.getElementById('penjelasan_obat').classList.remove('hidden')">
+                            <span class="ml-2 text-gray-700">Ya</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="pengobatan_rutin" value="Tidak" class="ui-radio" checked onclick="document.getElementById('penjelasan_obat').classList.add('hidden')">
+                            <span class="ml-2 text-gray-700">Tidak</span>
+                        </label>
+                    </div>
+                    <div id="penjelasan_obat" class="mt-2 hidden">
+                        <label for="penjelasan_obat_input" class="block text-sm font-medium mb-1">Jika Ya, jelaskan obat yang dikonsumsi</label>
+                        <input type="text" id="penjelasan_obat_input" name="penjelasan_obat" class="ui-input">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Apakah Anda memiliki kebutuhan makanan khusus?</label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="kebutuhan_makanan" value="Ya" class="ui-radio" onclick="document.getElementById('penjelasan_makanan').classList.remove('hidden')">
+                            <span class="ml-2 text-gray-700">Ya</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="kebutuhan_makanan" value="Tidak" class="ui-radio" checked onclick="document.getElementById('penjelasan_makanan').classList.add('hidden')">
+                            <span class="ml-2 text-gray-700">Tidak</span>
+                        </label>
+                    </div>
+                    <div id="penjelasan_makanan" class="mt-2 hidden">
+                        <label for="penjelasan_makanan_input" class="block text-sm font-medium mb-1">Jika Ya, jelaskan kebutuhan makanan khusus Anda</label>
+                        <input type="text" id="penjelasan_makanan_input" name="penjelasan_makanan" class="ui-input">
+                    </div>
+                </div>
+            </section>
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Apakah Anda nyaman dengan aktivitas fisik sedang seperti berjalan kaki atau mendaki ringan selama 1-2 jam?</label>
-                        <div class="flex items-center space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="aktivitas_fisik" value="Ya" class="form-radio text-blue-600 h-4 w-4" required>
-                                <span class="ml-2 text-gray-700">Ya</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="aktivitas_fisik" value="Tidak" class="form-radio text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Tidak</span>
-                            </label>
-                        </div>
+            <section class="space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-bold pb-2">
+                    3. Kesiapan Fisik & Logistik
+                </h2>
+                <div>
+                    <label for="terakhir_camping" class="block text-sm font-medium mb-1">Kapan terakhir kali melakukan Camping? (Tulis tahunnya)</label>
+                    <input type="text" id="terakhir_camping" name="terakhir_camping" placeholder="Contoh: 2023" class="ui-input">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Apakah Anda nyaman dengan aktivitas fisik sedang seperti berjalan kaki atau mendaki ringan selama 1-2 jam?</label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="aktivitas_fisik" value="Ya" class="ui-radio" required>
+                            <span class="ml-2 text-gray-700">Ya</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="aktivitas_fisik" value="Tidak" class="ui-radio">
+                            <span class="ml-2 text-gray-700">Tidak</span>
+                        </label>
                     </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Pilihan Sesi Kegiatan</label>
-                        <div class="flex items-center space-x-4">
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="pilihan_sesi" value="Sesi 1 Hari (PFA)" class="form-radio text-blue-600 h-4 w-4" required>
-                                <span class="ml-2 text-gray-700">Sesi 1 Hari (PFA)</span>
-                            </label>
-                            <label class="inline-flex items-center">
-                                <input type="radio" name="pilihan_sesi" value="Sesi 2 Hari (Termasuk Hiking)" class="form-radio text-blue-600 h-4 w-4" required>
-                                <span class="ml-2 text-gray-700">Sesi 2 Hari (Termasuk Hiking)</span>
-                            </label>
-                        </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Pilihan Sesi Kegiatan</label>
+                    <div class="flex flex-wrap gap-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="pilihan_sesi" value="Sesi 1 Hari (PFA)" class="ui-radio" required>
+                            <span class="ml-2 text-gray-700">Sesi 1 Hari (PFA)</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="pilihan_sesi" value="Sesi 2 Hari (Termasuk Hiking)" class="ui-radio" required>
+                            <span class="ml-2 text-gray-700">Sesi 2 Hari (Termasuk Hiking)</span>
+                        </label>
                     </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Perlengkapan pribadi yang Anda miliki (Centang semua yang berlaku)</label>
-                        <div class="space-y-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Perlengkapan pribadi yang Anda miliki (Centang semua yang berlaku)</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Jaket tebal" class="ui-checkbox"><span class="ml-2 text-gray-700">Jaket tebal</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Sepatu bot/sepatu hiking" class="ui-checkbox"><span class="ml-2 text-gray-700">Sepatu bot/sepatu hiking</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Pakaian ganti yang cukup" class="ui-checkbox"><span class="ml-2 text-gray-700">Pakaian ganti yang cukup</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Obat-obatan pribadi" class="ui-checkbox"><span class="ml-2 text-gray-700">Obat-obatan pribadi</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Tenda Doom" class="ui-checkbox"><span class="ml-2 text-gray-700">Tenda Doom</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Kompor Portable" class="ui-checkbox"><span class="ml-2 text-gray-700">Kompor Portable</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Peralatan Masak" class="ui-checkbox"><span class="ml-2 text-gray-700">Peralatan Masak</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Matras" class="ui-checkbox"><span class="ml-2 text-gray-700">Matras</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Plysheet" class="ui-checkbox"><span class="ml-2 text-gray-700">Plysheet</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Meja/Kursi Camping" class="ui-checkbox"><span class="ml-2 text-gray-700">Meja/Kursi Camping</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Tas Carrier" class="ui-checkbox"><span class="ml-2 text-gray-700">Tas Carrier</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Ponco/Jas Hujan" class="ui-checkbox"><span class="ml-2 text-gray-700">Ponco/Jas Hujan</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Senter" class="ui-checkbox"><span class="ml-2 text-gray-700">Senter</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Kupluk" class="ui-checkbox"><span class="ml-2 text-gray-700">Kupluk</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Topi Rimba" class="ui-checkbox"><span class="ml-2 text-gray-700">Topi Rimba</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Kaos Kaki" class="ui-checkbox"><span class="ml-2 text-gray-700">Kaos Kaki</span></label>
+                        <div class="col-span-full">
                             <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Jaket tebal" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Jaket tebal</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Sepatu bot/sepatu hiking" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Sepatu bot/sepatu hiking</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Pakaian ganti yang cukup" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Pakaian ganti yang cukup</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Obat-obatan pribadi" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Obat-obatan pribadi (jika ada)</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Tenda Doom" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Tenda Doom</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Kompor Portable" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Kompor Portable</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Peralatan Masak" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Peralatan Masak</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Matras" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Matras</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Plysheet" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Plysheet</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Meja/Kursi Camping" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Meja/Kursi Camping</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Tas Carrier" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Tas Carrier</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Ponco/Jas Hujan" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Ponco/Jas Hujan</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Senter" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Senter</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Kupluk" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Kupluk</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Topi Rimba" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Topi Rimba</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Kaos Kaki" class="form-checkbox rounded text-blue-600 h-4 w-4">
-                                <span class="ml-2 text-gray-700">Kaos Kaki</span>
-                            </label>
-                            <br>
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" name="perlengkapan[]" value="Lainnya" id="lainnya_checkbox" class="form-checkbox rounded text-blue-600 h-4 w-4" onclick="document.getElementById('lainnya_input').classList.toggle('hidden')">
+                                <input type="checkbox" name="perlengkapan[]" value="Lainnya" id="lainnya_checkbox" class="ui-checkbox" onclick="document.getElementById('lainnya_input').classList.toggle('hidden')">
                                 <span class="ml-2 text-gray-700">Lainnya (mohon sebutkan)</span>
                             </label>
                             <div id="lainnya_input" class="mt-2 hidden">
-                                <input type="text" name="perlengkapan_lainnya" class="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <input type="text" name="perlengkapan_lainnya" class="ui-input">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="space-y-6">
-                <h2 class="text-2xl font-semibold text-gray-700 mb-2 border-b border-gray-200 pb-2">4. Pernyataan & Persetujuan</h2>
+            <section class="space-y-6">
+                <h2 class="text-2xl sm:text-3xl font-bold pb-2">
+                    4. Pernyataan & Persetujuan
+                </h2>
                 <div class="flex items-start">
-                    <input type="checkbox" id="persetujuan" name="persetujuan" class="form-checkbox rounded-md text-blue-600 h-5 w-5 mt-1 focus:ring-2 focus:ring-blue-500" required>
+                    <input type="checkbox" id="persetujuan" name="persetujuan" class="ui-checkbox" required>
                     <label for="persetujuan" class="ml-2 text-sm text-gray-700">Saya setuju bahwa informasi yang saya berikan adalah benar dan lengkap, dan saya bersedia mengikuti semua peraturan yang telah ditetapkan.</label>
                 </div>
+            </section>
+
+            <div class="w-full pt-4">
+                <button type="submit" class="ui-button-primary">Kirim Formulir</button>
             </div>
-            
-            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform transform hover:scale-105">Kirim Formulir</button>
         </form>
-    </div>
-    
+    </main>
+
+    <footer class="mt-8 text-center text-sm text-gray-400">
+        <p>Created by hudascript@hrteach2025</p>
+    </footer>
+
     <div id="modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-60 hidden">
         <div class="bg-white rounded-lg p-8 shadow-2xl max-w-sm w-full text-center">
             <div id="loading" class="mb-4">
@@ -294,7 +398,7 @@
                 </svg>
                 <h3 class="text-2xl font-bold text-gray-800 mt-4">Terjadi Kesalahan</h3>
                 <p class="mt-2 text-gray-600">Mohon coba kembali.</p>
-                <button id="close-error-modal-btn" class="mt-6 px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">Tutup</button>
+                <button id="close-error-modal-btn" class="mt-6 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">Tutup</button>
             </div>
         </div>
     </div>
