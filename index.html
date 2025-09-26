@@ -413,9 +413,10 @@
 
     <script>
         function toggleAlasan() {
-          const checkboxes = document.querySelectorAll('input[name="pilihan_sesi[]"]:checked');
-          const alasanTextarea = document.getElementById('alasan_textarea');
-          alasanTextarea.classList.toggle('hidden', checkboxes.length !== 1);
+          const hari1 = document.querySelector('input[value="Hari 1 (Kemping dan Pembekalan)"]');
+            const hari2 = document.querySelector('input[value="Hari 2 (Trekking)"]');
+            const alasanTextarea = document.getElementById('alasan_textarea');
+            const alasanInput = document.getElementById('alasan_input');
         }
             
             // Cek jika hanya satu checkbox yang tercentang
