@@ -8,11 +8,9 @@ const errorMessage = document.getElementById('error-message');
 const closeModalBtn = document.getElementById('close-modal-btn');
 const closeErrorModalBtn = document.getElementById('close-error-modal-btn');
 
-// GANTI DENGAN URL APPS SCRIPT-mu untuk MENGIRIM DATA (doPost)
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwzSO1dXDxMeBTEGMYSg5OycQWKhYybwm258PtB4a8pAcuBZR-TUCNDsEBnKQMX5Sn09g/exec'; 
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwzSO1dXDxMeBTEGMYSg5OycQWKhYybwm258PtB4a8pAcuBZR-TUCNDsEBnKQMX5Sn09g/exec';
 
-// GANTI DENGAN URL APPS SCRIPT-mu untuk MENGAMBIL DATA (doGet)
-const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbzrrBIupY4qwA6WD8e4iYRUfaZr0oo0-c2riAV2N-WEmej7E8v-65_Cw3WqBk3DLHXF/exec'; 
+const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbzrrBIupY4qwA6WD8e4iYRUfaZr0oo0-c2riAV2N-WEmej7E8v-65_Cw3WqBk3DLHXF/exec';
 
 const namaLengkapInput = document.getElementById('nama_lengkap');
 const posisiDivisiInput = document.getElementById('posisi_divisi');
@@ -22,10 +20,8 @@ const loadingPosisi = document.getElementById('loading-posisi');
 
 let pesertaData = [];
 
-// Fungsi untuk mengambil dan mengisi data dropdown
 async function populateDropdowns() {
     try {
-        // Tampilkan loading, sembunyikan input
         namaLengkapInput.classList.add('hidden');
         posisiDivisiInput.classList.add('hidden');
         loadingNama.classList.remove('hidden');
@@ -34,10 +30,8 @@ async function populateDropdowns() {
         const response = await fetch(daftarPesertaURL);
         const data = await response.json();
 
-        // Simpan data untuk digunakan nanti
         pesertaData = data;
 
-        // Sembunyikan loading, tampilkan input
         loadingNama.classList.add('hidden');
         loadingPosisi.classList.add('hidden');
         namaLengkapInput.classList.remove('hidden');
@@ -48,25 +42,22 @@ async function populateDropdowns() {
             return;
         }
 
-        // Isi list dropdown dengan data
         pesertaData.forEach(peserta => {
             const li = document.createElement('li');
-            li.textContent = peserta["NamaLengkap"];
+            li.textContent = peserta["Nama Lengkap"];
             li.classList.add('px-4', 'py-2', 'cursor-pointer', 'hover:bg-blue-100');
             li.addEventListener('click', () => {
-                namaLengkapInput.value = peserta["NamaLengkap"];
+                namaLengkapInput.value = peserta["Nama Lengkap"];
                 posisiDivisiInput.value = peserta["Posisi/Divisi"];
                 dropdownNamaList.classList.add('hidden');
             });
             dropdownNamaList.appendChild(li);
         });
 
-        // Tampilkan dropdown saat input di-klik
         namaLengkapInput.addEventListener('click', () => {
             dropdownNamaList.classList.toggle('hidden');
         });
 
-        // Sembunyikan dropdown saat klik di luar area
         document.addEventListener('click', (event) => {
             if (!event.target.closest('#dropdown-nama-wrapper')) {
                 dropdownNamaList.classList.add('hidden');
@@ -80,33 +71,57 @@ async function populateDropdowns() {
     }
 }
 
-// Panggil fungsi saat halaman dimuat
 document.addEventListener('DOMContentLoaded', populateDropdowns);
 
 form.addEventListener('submit', e => {
     e.preventDefault();
 
-    // Tampilkan modal dan loading spinner
     modal.classList.remove('hidden');
     loadingSpinner.classList.remove('hidden');
     successMessage.classList.add('hidden');
     errorMessage.classList.add('hidden');
 
     const formData = new FormData(form);
+    const data = {};
+    for (const [key, value] of formData.entries()) {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input && (input.type === 'checkbox' || input.type === 'radio')) {
+            if (!data[key]) {
+                data[key] = [];
+            }
+            data[key].push(value);
+        } else {
+            data[key] = value;
+        }
+    }
 
-    // Langsung kirim data tanpa menunggu respons dari server
-    fetch(scriptURL, { method: 'POST', body: formData });
-    
-    // Asumsikan pengiriman sukses dan langsung tampilkan pesan sukses
-    // Ini membuat user merasa pengiriman instan
-    loadingSpinner.classList.add('hidden');
-    successMessage.classList.remove('hidden');
-    
-    // Reset formulir
-    form.reset();
+    fetch(scriptURL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Jaringan bermasalah atau server menolak permintaan.');
+        }
+        return response.text();
+    })
+    .then(result => {
+        console.log('Success!', result);
+        loadingSpinner.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        form.reset();
+    })
+    .catch(error => {
+        console.error('Error!', error.message);
+        loadingSpinner.classList.add('hidden');
+        errorMessage.classList.remove('hidden');
+        document.getElementById('error-message-text').textContent = error.message;
+    });
 });
 
-// Tutup modal saat tombol "Tutup" diklik
 closeModalBtn.addEventListener('click', () => {
     modal.classList.add('hidden');
 });
