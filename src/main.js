@@ -109,10 +109,11 @@ form.addEventListener('submit', e => {
         method: 'GET'
     })
     .then(response => {
+        // PERUBAHAN UTAMA DI SINI
         if (!response.ok) {
-            throw new Error('Jaringan bermasalah atau server menolak permintaan.');
+            return response.text().then(text => { throw new Error(text); });
         }
-        return response.text();
+        return response.json(); // Mengubah .text() menjadi .json()
     })
     .then(result => {
         console.log('Success!', result);
