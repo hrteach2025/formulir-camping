@@ -8,9 +8,9 @@ const errorMessage = document.getElementById('error-message');
 const closeModalBtn = document.getElementById('close-modal-btn');
 const closeErrorModalBtn = document.getElementById('close-error-modal-btn');
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwzSO1dXDxMeBTEGMYSg5OycQWKhYybwm258PtB4a8pAcuBZR-TUCNDsEBnKQMX5Sn09g/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycby5mC-wlfXvOym6wYJjBNoeTVEdrGauEOcretMgViy4cYQnCKU-qjm-2KIj1O4v7dspzQ/exec';
 
-const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbzrrBIupY4qwA6WD8e4iYRUfaZr0oo0-c2riAV2N-WEmej7E8v-65_Cw3WqBk3DLHXF/exec';
+const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbz-W7teqJjK3wIXCetLs4WzbJdBjs59rOHy0cZFJEKD1m0NNGr7iCytV81pCyoEqYzhlw/exec';
 
 const namaLengkapInput = document.getElementById('nama_lengkap');
 const posisiDivisiInput = document.getElementById('posisi_divisi');
