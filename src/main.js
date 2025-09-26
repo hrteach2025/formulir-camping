@@ -118,7 +118,11 @@ form.addEventListener('submit', e => {
         console.error('Error!', error.message);
         loadingSpinner.classList.add('hidden');
         errorMessage.classList.remove('hidden');
-        document.getElementById('error-message-text').textContent = error.message;
+        // Menampilkan pesan error pada elemen p yang ada
+        const errorMessageText = errorMessage.querySelector('p');
+        if (errorMessageText) {
+          errorMessageText.textContent = error.message;
+        }
     });
 });
 
