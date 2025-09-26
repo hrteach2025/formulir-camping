@@ -82,44 +82,27 @@ form.addEventListener('submit', e => {
     errorMessage.classList.add('hidden');
 
     const formData = new FormData(form);
-    const data = {};
-    for (const [key, value] of formData.entries()) {
-        const input = form.querySelector(`[name="${key}"]`);
-        if (input && (input.type === 'checkbox' || input.type === 'radio')) {
-            if (!data[key]) {
-                data[key] = [];
-            }
-            data[key].push(value);
-        } else {
-            data[key] = value;
-        }
-    }
-    
-    // Convert object to query string
-    const queryString = Object.keys(data).map(key => {
-        const value = data[key];
-        if (Array.isArray(value)) {
-            return value.map(val => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`).join('&');
-        }
-        return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-    }).join('&');
 
-    // Ubah method menjadi GET dan kirim data di URL
-    fetch(`${scriptURL}?${queryString}`, {
-        method: 'GET'
+    // Kirim data menggunakan metode POST
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData
     })
     .then(response => {
-        // PERUBAHAN UTAMA DI SINI
         if (!response.ok) {
-            return response.text().then(text => { throw new Error(text); });
+            throw new Error('Jaringan bermasalah atau server menolak permintaan.');
         }
-        return response.json(); // Mengubah .text() menjadi .json()
+        return response.json();
     })
     .then(result => {
-        console.log('Success!', result);
-        loadingSpinner.classList.add('hidden');
-        successMessage.classList.remove('hidden');
-        form.reset();
+        if (result.success) {
+            console.log('Success!', result);
+            loadingSpinner.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            form.reset();
+        } else {
+            throw new Error(result.message || 'Terjadi kesalahan saat menyimpan data.');
+        }
     })
     .catch(error => {
         console.error('Error!', error.message);
