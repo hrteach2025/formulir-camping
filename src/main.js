@@ -44,7 +44,7 @@ async function populateDropdowns() {
 
         pesertaData.forEach(peserta => {
             const li = document.createElement('li');
-            li.textContent = peserta["Nama Lengkap"];
+            li.textContent = peserta["NamaLengkap"];
             li.classList.add('px-4', 'py-2', 'cursor-pointer', 'hover:bg-blue-100');
             li.addEventListener('click', () => {
                 namaLengkapInput.value = peserta["Nama Lengkap"];
