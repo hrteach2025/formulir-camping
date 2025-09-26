@@ -99,7 +99,7 @@ form.addEventListener('submit', e => {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/plain' // Ubah dari 'application/json' menjadi 'text/plain'
         }
     })
     .then(response => {
