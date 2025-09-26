@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Kesiapan Kemping</title>
+    <title>Formulir Kesiapan Camping</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
@@ -203,16 +203,16 @@
                     </div>
                     <div>
                         <label for="posisi_divisi" class="block text-sm font-medium mb-1">Posisi/Divisi</label>
-                        <input type="text" id="posisi_divisi" name="posisi_divisi" class="ui-input" placeholder="Otomatis mengisi" readonly required>
+                        <input type="text" id="posisi_divisi" name="posisi_divisi" class="ui-input" readonly required>
                         <span id="loading-posisi" class="text-sm text-gray-500 mt-1 block">Memuat...</span>
                     </div>
                     <div>
                         <label for="nomor_kontak_darurat" class="block text-sm font-medium mb-1">Nomor Kontak Darurat</label>
-                        <input type="text" id="nomor_kontak_darurat" name="nomor_kontak_darurat" placeholder="Contoh: 62857xxxxxxx" class="ui-input" required>
+                        <input type="text" id="nomor_kontak_darurat" name="nomor_kontak_darurat" class="ui-input" required>
                     </div>
                     <div>
                         <label for="hubungan_kontak" class="block text-sm font-medium mb-1">Hubungan dengan kontak darurat</label>
-                        <input type="text" id="hubungan_kontak" name="hubungan_kontak" placeholder="Contoh: Istri/Suami/Ibu/Ayah/Saudara dll" class="ui-input" required>
+                        <input type="text" id="hubungan_kontak" name="hubungan_kontak" class="ui-input" required>
                     </div>
                 </div>
             </section>
@@ -296,7 +296,7 @@
                     3. Kesiapan Fisik & Logistik
                 </h2>
                 <div>
-                    <label for="terakhir_camping" class="block text-sm font-medium mb-1">Kapan terakhir kali melakukan Kemping? (Tulis tahunnya)</label>
+                    <label for="terakhir_camping" class="block text-sm font-medium mb-1">Kapan terakhir kali melakukan Camping? (Tulis tahunnya)</label>
                     <input type="text" id="terakhir_camping" name="terakhir_camping" placeholder="Contoh: 2023" class="ui-input">
                 </div>
                 <div>
@@ -316,12 +316,12 @@
                     <label class="block text-sm font-medium mb-2">Pilihan Sesi Kegiatan</label>
                     <div class="flex flex-wrap gap-4" id="pilihan_sesi_wrapper">
                         <label class="inline-flex items-center">
-                            <input type="checkbox" name="pilihan_sesi" value="Hari 1 (Kemping dan Pembekalan)" class="ui-checkbox" onchange="toggleAlasan()" required>
-                            <span class="ml-2 text-gray-700">Hari 1 (Kemping dan Pembekalan)</span>
+                            <input type="checkbox" name="pilihan_sesi[]" value="Hari 1 (Kemping dan Pembekalan)" class="ui-checkbox" onchange="toggleAlasan()" required>
+                            <span class="ml-2 text-gray-700">✅ Hari 1 (Kemping dan Pembekalan)</span>
                         </label>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" name="pilihan_sesi" value="Hari 2 (Trekking)" class="ui-checkbox" onchange="toggleAlasan()" required>
-                            <span class="ml-2 text-gray-700">Hari 2 (Trekking)</span>
+                            <input type="checkbox" name="pilihan_sesi[]" value="Hari 2 (Trekking)" class="ui-checkbox" onchange="toggleAlasan()" required>
+                            <span class="ml-2 text-gray-700">✅ Hari 2 (Trekking)</span>
                         </label>
                     </div>
                     <div id="alasan_textarea" class="mt-4 hidden">
@@ -332,22 +332,22 @@
                 <div>
                     <label class="block text-sm font-medium mb-2">Perlengkapan pribadi yang Anda miliki (Centang semua yang berlaku)</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Jaket tebal" class="ui-checkbox"><span class="ml-2 text-gray-700">Jaket tebal</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Sepatu bot/sepatu hiking" class="ui-checkbox"><span class="ml-2 text-gray-700">Sepatu bot/sepatu hiking</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Pakaian ganti yang cukup" class="ui-checkbox"><span class="ml-2 text-gray-700">Pakaian ganti yang cukup</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Obat-obatan pribadi" class="ui-checkbox"><span class="ml-2 text-gray-700">Obat-obatan pribadi</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Tenda Doom" class="ui-checkbox"><span class="ml-2 text-gray-700">Tenda Doom</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Kompor Portable" class="ui-checkbox"><span class="ml-2 text-gray-700">Kompor Portable</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Peralatan Masak" class="ui-checkbox"><span class="ml-2 text-gray-700">Peralatan Masak</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Matras" class="ui-checkbox"><span class="ml-2 text-gray-700">Matras</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Plysheet" class="ui-checkbox"><span class="ml-2 text-gray-700">Plysheet</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Meja/Kursi Camping" class="ui-checkbox"><span class="ml-2 text-gray-700">Meja/Kursi Kemping</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Tas Carrier" class="ui-checkbox"><span class="ml-2 text-gray-700">Tas Carrier</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Ponco/Jas Hujan" class="ui-checkbox"><span class="ml-2 text-gray-700">Ponco/Jas Hujan</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Senter" class="ui-checkbox"><span class="ml-2 text-gray-700">Senter</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Kupluk" class="ui-checkbox"><span class="ml-2 text-gray-700">Kupluk</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Topi Rimba" class="ui-checkbox"><span class="ml-2 text-gray-700">Topi Rimba</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan" value="Kaos Kaki" class="ui-checkbox"><span class="ml-2 text-gray-700">Kaos Kaki</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Jaket tebal" class="ui-checkbox"><span class="ml-2 text-gray-700">Jaket tebal</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Sepatu bot/sepatu hiking" class="ui-checkbox"><span class="ml-2 text-gray-700">Sepatu bot/sepatu hiking</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Pakaian ganti yang cukup" class="ui-checkbox"><span class="ml-2 text-gray-700">Pakaian ganti yang cukup</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Obat-obatan pribadi" class="ui-checkbox"><span class="ml-2 text-gray-700">Obat-obatan pribadi</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Tenda Doom" class="ui-checkbox"><span class="ml-2 text-gray-700">Tenda Doom</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Kompor Portable" class="ui-checkbox"><span class="ml-2 text-gray-700">Kompor Portable</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Peralatan Masak" class="ui-checkbox"><span class="ml-2 text-gray-700">Peralatan Masak</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Matras" class="ui-checkbox"><span class="ml-2 text-gray-700">Matras</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Plysheet" class="ui-checkbox"><span class="ml-2 text-gray-700">Plysheet</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Meja/Kursi Camping" class="ui-checkbox"><span class="ml-2 text-gray-700">Meja/Kursi Camping</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Tas Carrier" class="ui-checkbox"><span class="ml-2 text-gray-700">Tas Carrier</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Ponco/Jas Hujan" class="ui-checkbox"><span class="ml-2 text-gray-700">Ponco/Jas Hujan</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Senter" class="ui-checkbox"><span class="ml-2 text-gray-700">Senter</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Kupluk" class="ui-checkbox"><span class="ml-2 text-gray-700">Kupluk</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Topi Rimba" class="ui-checkbox"><span class="ml-2 text-gray-700">Topi Rimba</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Kaos Kaki" class="ui-checkbox"><span class="ml-2 text-gray-700">Kaos Kaki</span></label>
                         <div class="col-span-full">
                             <label class="inline-flex items-center">
                                 <input type="checkbox" name="perlengkapan[]" value="Lainnya" id="lainnya_checkbox" class="ui-checkbox" onclick="document.getElementById('lainnya_input').classList.toggle('hidden')">
