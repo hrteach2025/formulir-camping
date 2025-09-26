@@ -73,8 +73,17 @@ async function populateDropdowns() {
 
 document.addEventListener('DOMContentLoaded', populateDropdowns);
 
+// Temukan event listener untuk form submit
 form.addEventListener('submit', e => {
     e.preventDefault();
+
+    const namaLengkap = document.getElementById('nama_lengkap').value;
+
+    // Tambahkan validasi di sini
+    if (!namaLengkap) {
+        alert('Mohon pilih nama lengkap Anda dari daftar yang tersedia.');
+        return; // Hentikan proses pengiriman formulir
+    }
 
     // Tampilkan modal loading
     modal.classList.remove('hidden');
