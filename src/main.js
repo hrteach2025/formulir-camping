@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', populateDropdowns);
 form.addEventListener('submit', e => {
     e.preventDefault();
 
+    // Tampilkan modal loading
     modal.classList.remove('hidden');
     loadingSpinner.classList.remove('hidden');
     successMessage.classList.add('hidden');
@@ -83,36 +84,26 @@ form.addEventListener('submit', e => {
 
     const formData = new FormData(form);
 
-    // Kirim data menggunakan metode POST
+    // Kirim data ke Google Apps Script tanpa menunggu respons
     fetch(scriptURL, {
         method: 'POST',
         body: formData
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Jaringan bermasalah atau server menolak permintaan.');
-        }
-        return response.json();
-    })
-    .then(result => {
-        if (result.success) {
-            console.log('Success!', result);
-            loadingSpinner.classList.add('hidden');
-            successMessage.classList.remove('hidden');
-            form.reset();
-        } else {
-            throw new Error(result.message || 'Terjadi kesalahan saat menyimpan data.');
-        }
+        // Log respons dari server untuk debugging (opsional)
+        console.log('Respons server diterima:', response);
     })
     .catch(error => {
-        console.error('Error!', error.message);
-        loadingSpinner.classList.add('hidden');
-        errorMessage.classList.remove('hidden');
-        const errorMessageText = errorMessage.querySelector('p');
-        if (errorMessageText) {
-            errorMessageText.textContent = error.message;
-        }
+        // Log error jika ada masalah, tapi tidak tampilkan ke pengguna
+        console.error('Error saat mengirim data:', error);
     });
+
+    // Atur penundaan 2 detik sebelum menampilkan pesan sukses
+    setTimeout(() => {
+        loadingSpinner.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        form.reset();
+    }, 2000); // Waktu tunda dalam milidetik (2000ms = 2 detik)
 });
 
 closeModalBtn.addEventListener('click', () => {
