@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Analisis Camping</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+        }
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: #334155;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .dashboard-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        /* Style tabel untuk konsistensi */
+        .ui-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .ui-table th, .ui-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 0.875rem;
+            color: #334155;
+        }
+        .ui-table th {
+            font-weight: 600;
+            background-color: #f8fafc;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="w-full max-w-4xl text-center mb-8 mt-4">
+        <h1 class="text-3xl sm:text-4xl text-gray-800 tracking-tight mb-2">Dashboard Analisis Peserta</h1>
+        <p class="text-lg text-gray-600 font-medium">Data dari Formulir Kesiapan TEACH Scouting Jamboree</p>
+    </header>
+
+    <main class="w-full max-w-4xl px-4 space-y-8">
+        <section class="dashboard-card">
+            <h2 class="text-2xl font-bold pb-2 mb-4">Ringkasan Partisipasi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <canvas id="sesiPartisipasiChart"></canvas>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-700 mb-2">Alasan Tidak Ikut Penuh</h3>
+                    <ul id="alasanList" class="space-y-2 text-sm text-gray-600">
+                        <li>Memuat data...</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-card">
+            <h2 class="text-2xl font-bold pb-2 mb-4">Kondisi Kesehatan & Medis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-700 mb-2">Ringkasan Medis</h3>
+                    <canvas id="kondisiMedisChart"></canvas>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-700 mb-2">Detail Medis Peserta (Alergi, Obat, dll)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="ui-table">
+                            <thead>
+                                <tr>
+                                    <th class="whitespace-nowrap">Nama Lengkap</th>
+                                    <th class="whitespace-nowrap">Kondisi Medis</th>
+                                    <th class="whitespace-nowrap">Alergi</th>
+                                    <th class="whitespace-nowrap">Pengobatan Rutin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medisTableBody">
+                                <tr><td colspan="4">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-card">
+            <h2 class="text-2xl font-bold pb-2 mb-4">Kesiapan Logistik & Perlengkapan</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <canvas id="perlengkapanChart"></canvas>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-lg text-gray-700 mb-2">Peserta yang Paling Tidak Siap</h3>
+                    <ul id="logistikList" class="space-y-2 text-sm text-gray-600">
+                        <li>Memuat data...</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section class="dashboard-card">
+            <h2 class="text-2xl font-bold pb-2 mb-4">Kontak Darurat Peserta</h2>
+            <div class="overflow-x-auto">
+                <table class="ui-table">
+                    <thead>
+                        <tr>
+                            <th class="whitespace-nowrap">Nama Lengkap</th>
+                            <th class="whitespace-nowrap">Posisi/Divisi</th>
+                            <th class="whitespace-nowrap">Kontak Darurat</th>
+                            <th class="whitespace-nowrap">Hubungan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kontakTableBody">
+                        <tr><td colspan="4">Memuat data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-8 text-center text-sm text-gray-400">
+        <p>Created by hudascript@hrteach2025</p>
+    </footer>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwzSO1dXDxMeBTEGMYSg5OycQWKhYybwm258PtB4a8pAcuBZR-TUCNDsEBnKQMX5Sn09g/exec'; 
+        
+        async function fetchData() {
+            try {
+                const response = await fetch(`${API_URL}?action=getData`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                
+                renderDashboard(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('sesiPartisipasiChart').parentNode.innerHTML = '<p class="text-red-500 text-center">Gagal memuat data. Mohon cek URL API atau izin akses.</p>';
+            }
+        }
+        
+        function renderDashboard(data) {
+            // 1. Analisis Partisipasi Sesi
+            const sesiCounts = { '2 Hari': 0, '1 Hari': 0 };
+            const alasanList = document.getElementById('alasanList');
+            alasanList.innerHTML = '';
+            
+            data.forEach(p => {
+                const pilihan = p.pilihan_sesi.split(', ');
+                if (pilihan.length === 2) {
+                    sesiCounts['2 Hari']++;
+                } else if (pilihan.length === 1) {
+                    sesiCounts['1 Hari']++;
+                    if (p.alasan) {
+                        alasanList.innerHTML += `<li><strong>${p.nama_lengkap}</strong>: ${p.alasan}</li>`;
+                    }
+                }
+            });
+            if (alasanList.innerHTML === '') {
+                alasanList.innerHTML = '<li class="text-gray-500">Semua peserta ikut penuh.</li>';
+            }
+            
+            new Chart(document.getElementById('sesiPartisipasiChart'), {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(sesiCounts),
+                    datasets: [{
+                        data: Object.values(sesiCounts),
+                        backgroundColor: ['#3b82f6', '#9ca3af']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: { callbacks: { label: (context) => `${context.label}: ${context.raw} (${((context.raw / data.length) * 100).toFixed(0)}%)` } }
+                    }
+                }
+            });
+
+            // 2. Analisis Kondisi Kesehatan
+            const kondisiCounts = { 'Ada Kondisi Medis': 0, 'Sehat': 0 };
+            const alergiCounts = { 'Ada Alergi': 0, 'Tidak Ada Alergi': 0 };
+            const pengobatanCounts = { 'Pengobatan Rutin': 0, 'Tidak Ada Pengobatan': 0 };
+            const medisTableBody = document.getElementById('medisTableBody');
+            medisTableBody.innerHTML = '';
+
+            data.forEach(p => {
+                if (p.kondisi_medis === 'Ya') kondisiCounts['Ada Kondisi Medis']++; else kondisiCounts['Sehat']++;
+                if (p.alergi === 'Ya') alergiCounts['Ada Alergi']++; else alergiCounts['Tidak Ada Alergi']++;
+                if (p.pengobatan_rutin === 'Ya') pengobatanCounts['Pengobatan Rutin']++; else pengobatanCounts['Tidak Ada Pengobatan']++;
+                
+                if (p.kondisi_medis === 'Ya' || p.alergi === 'Ya' || p.pengobatan_rutin === 'Ya') {
+                    medisTableBody.innerHTML += `
+                        <tr>
+                            <td>${p.nama_lengkap}</td>
+                            <td>${p.penjelasan_medis || '-'}</td>
+                            <td>${p.penjelasan_alergi || '-'}</td>
+                            <td>${p.penjelasan_obat || '-'}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            new Chart(document.getElementById('kondisiMedisChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Kondisi Medis', 'Alergi', 'Pengobatan Rutin'],
+                    datasets: [{
+                        label: 'Ya',
+                        data: [kondisiCounts['Ada Kondisi Medis'], alergiCounts['Ada Alergi'], pengobatanCounts['Pengobatan Rutin']],
+                        backgroundColor: '#3b82f6'
+                    }, {
+                        label: 'Tidak',
+                        data: [kondisiCounts['Sehat'], alergiCounts['Tidak Ada Alergi'], pengobatanCounts['Tidak Ada Pengobatan']],
+                        backgroundColor: '#9ca3af'
+                    }]
+                },
+                options: { responsive: true, scales: { x: { stacked: true }, y: { stacked: true } } }
+            });
+
+            // 3. Analisis Kesiapan Logistik
+            const perlengkapanCounts = {};
+            data.forEach(p => {
+                const items = p.perlengkapan ? p.perlengkapan.split(', ') : [];
+                items.forEach(item => {
+                    perlengkapanCounts[item] = (perlengkapanCounts[item] || 0) + 1;
+                });
+            });
+            const perlengkapanLabels = Object.keys(perlengkapanCounts).sort();
+            const perlengkapanData = perlengkapanLabels.map(label => perlengkapanCounts[label]);
+            
+            new Chart(document.getElementById('perlengkapanChart'), {
+                type: 'bar',
+                data: {
+                    labels: perlengkapanLabels,
+                    datasets: [{
+                        label: 'Jumlah Karyawan yang Memiliki',
+                        data: perlengkapanData,
+                        backgroundColor: '#3b82f6'
+                    }]
+                },
+                options: { responsive: true, indexAxis: 'y' }
+            });
+
+            const logistikList = document.getElementById('logistikList');
+            logistikList.innerHTML = '';
+            // Logika sederhana untuk menentukan "peserta paling tidak siap"
+            const totalPerlengkapan = Object.values(perlengkapanCounts).reduce((a, b) => a + b, 0);
+            data.sort((a, b) => {
+                const aItems = a.perlengkapan ? a.perlengkapan.split(', ').length : 0;
+                const bItems = b.perlengkapan ? b.perlengkapan.split(', ').length : 0;
+                return aItems - bItems;
+            });
+            
+            data.slice(0, 3).forEach(p => {
+                logistikList.innerHTML += `<li><strong>${p.nama_lengkap}</strong>: hanya memiliki ${p.perlengkapan.split(', ').length} item (${p.perlengkapan || 'tidak ada'})</li>`;
+            });
+
+            // 4. Tabel Kontak Darurat
+            const kontakTableBody = document.getElementById('kontakTableBody');
+            kontakTableBody.innerHTML = '';
+            data.forEach(p => {
+                kontakTableBody.innerHTML += `
+                    <tr>
+                        <td>${p.nama_lengkap}</td>
+                        <td>${p.posisidivisi}</td>
+                        <td>${p.nomor_kontak_darurat}</td>
+                        <td>${p.hubungan_kontak}</td>
+                    </tr>
+                `;
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+        });
+    </script>
+</body>
+</html>
