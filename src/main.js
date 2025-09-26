@@ -47,7 +47,7 @@ async function populateDropdowns() {
             li.textContent = peserta["NamaLengkap"];
             li.classList.add('px-4', 'py-2', 'cursor-pointer', 'hover:bg-blue-100');
             li.addEventListener('click', () => {
-                namaLengkapInput.value = peserta["Nama Lengkap"];
+                namaLengkapInput.value = peserta["NamaLengkap"];
                 posisiDivisiInput.value = peserta["Posisi/Divisi"];
                 dropdownNamaList.classList.add('hidden');
             });
