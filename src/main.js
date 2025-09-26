@@ -94,13 +94,19 @@ form.addEventListener('submit', e => {
             data[key] = value;
         }
     }
-
-    fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'text/plain' // Ubah dari 'application/json' menjadi 'text/plain'
+    
+    // Convert object to query string
+    const queryString = Object.keys(data).map(key => {
+        const value = data[key];
+        if (Array.isArray(value)) {
+            return value.map(val => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`).join('&');
         }
+        return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    }).join('&');
+
+    // Ubah method menjadi GET dan kirim data di URL
+    fetch(`${scriptURL}?${queryString}`, {
+        method: 'GET'
     })
     .then(response => {
         if (!response.ok) {
@@ -118,10 +124,9 @@ form.addEventListener('submit', e => {
         console.error('Error!', error.message);
         loadingSpinner.classList.add('hidden');
         errorMessage.classList.remove('hidden');
-        // Menampilkan pesan error pada elemen p yang ada
         const errorMessageText = errorMessage.querySelector('p');
         if (errorMessageText) {
-          errorMessageText.textContent = error.message;
+            errorMessageText.textContent = error.message;
         }
     });
 });
