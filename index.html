@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Kesiapan Camping</title>
+    <title>Formulir Kesiapan Kemping</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Latar belakang abu-abu kebiruan sangat lembut */
+            background-color: #f0f4f8;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -20,40 +20,36 @@
         }
         h1 {
             font-family: 'Poppins', sans-serif;
-            font-weight: 800; /* Extra-bold */
+            font-weight: 800;
         }
         h2 {
             font-family: 'Poppins', sans-serif;
-            font-weight: 700; /* Bold */
-            color: #334155; /* Warna teks abu-abu gelap untuk judul bagian */
+            font-weight: 700;
+            color: #334155;
         }
         label {
-            color: #334155; /* Warna teks label abu-abu gelap */
+            color: #334155;
         }
-
-        /* Styling input text, password (contoh: nomor kontak), dropdown */
         .ui-input {
             width: 100%;
             padding: 0.75rem 1rem;
             background-color: #ffffff;
-            border: 1px solid #a7d9f7; /* Border biru muda yang lebih dekat ke referensi */
-            border-radius: 0.5rem; /* Sudut membulat */
+            border: 1px solid #a7d9f7;
+            border-radius: 0.5rem;
             transition: all 0.2s ease-in-out;
             color: #1f2937;
-            box-shadow: none; /* Hilangkan shadow default */
+            box-shadow: none;
         }
         .ui-input:focus {
             outline: none;
-            border-color: #3b82f6; /* Border biru saat fokus */
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); /* Ring focus lembut */
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
         .ui-input[readonly] {
             background-color: #ffffff;
             cursor: pointer;
             color: #1f2937;
         }
-
-        /* Dropdown custom (untuk mengganti ikon default browser) */
         .ui-dropdown-wrapper {
             position: relative;
         }
@@ -65,26 +61,24 @@
             transform: translateY(-50%) rotate(45deg);
             width: 0.5rem;
             height: 0.5rem;
-            border-bottom: 2px solid #3b82f6; /* Warna biru untuk ikon panah */
+            border-bottom: 2px solid #3b82f6;
             border-right: 2px solid #3b82f6;
             pointer-events: none;
             box-sizing: border-box;
         }
-
-        /* Checkbox custom */
         .ui-checkbox {
-            appearance: none; /* Hilangkan default checkbox */
+            appearance: none;
             width: 1.25rem;
             height: 1.25rem;
             background-color: #ffffff;
             border: 1px solid #a7d9f7;
-            border-radius: 0.25rem; /* Sudut sedikit membulat */
+            border-radius: 0.25rem;
             cursor: pointer;
             position: relative;
-            flex-shrink: 0; /* Pastikan tidak mengecil */
+            flex-shrink: 0;
         }
         .ui-checkbox:checked {
-            background-color: #3b82f6; /* Latar belakang biru saat tercentang */
+            background-color: #3b82f6;
             border-color: #3b82f6;
         }
         .ui-checkbox:checked::after {
@@ -98,21 +92,19 @@
             border-width: 0 2px 2px 0;
             transform: rotate(45deg);
         }
-
-        /* Radio custom */
         .ui-radio {
-            appearance: none; /* Hilangkan default radio */
+            appearance: none;
             width: 1.25rem;
             height: 1.25rem;
             background-color: #ffffff;
             border: 1px solid #a7d9f7;
-            border-radius: 50%; /* Bentuk lingkaran */
+            border-radius: 50%;
             cursor: pointer;
             position: relative;
             flex-shrink: 0;
         }
         .ui-radio:checked {
-            border-color: #3b82f6; /* Border biru saat terpilih */
+            border-color: #3b82f6;
         }
         .ui-radio:checked::after {
             content: '';
@@ -122,30 +114,26 @@
             transform: translate(-50%, -50%);
             width: 0.6rem;
             height: 0.6rem;
-            background-color: #3b82f6; /* Titik biru di tengah */
+            background-color: #3b82f6;
             border-radius: 50%;
         }
-
-        /* Tombol Submit */
         .ui-button-primary {
             width: 100%;
-            background-color: #3b82f6; /* Biru solid */
+            background-color: #3b82f6;
             color: white;
-            font-weight: 600; /* Semi-bold */
+            font-weight: 600;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             transition: background-color 0.2s ease-in-out;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
         .ui-button-primary:hover {
-            background-color: #2563eb; /* Biru lebih gelap saat hover */
+            background-color: #2563eb;
         }
         .ui-button-primary:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
         }
-
-        /* Styling dropdown list */
         .ui-dropdown-list {
             background-color: #ffffff;
             border: 1px solid #a7d9f7;
@@ -165,13 +153,28 @@
             transition: background-color 0.1s ease-in-out;
         }
         .ui-dropdown-list li:hover {
-            background-color: #e0f2fe; /* Background biru muda saat hover */
-            color: #3b82f6; /* Teks biru saat hover */
+            background-color: #e0f2fe;
+            color: #3b82f6;
         }
         .ui-dropdown-list li.selected {
-            background-color: #e0f2fe; /* Background biru muda untuk yang terpilih */
-            color: #3b82f6; /* Teks biru untuk yang terpilih */
+            background-color: #e0f2fe;
+            color: #3b82f6;
             font-weight: 500;
+        }
+        .ui-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #ffffff;
+            border: 1px solid #a7d9f7;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            color: #1f2937;
+            box-shadow: none;
+        }
+        .ui-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
         }
     </style>
 </head>
@@ -182,7 +185,8 @@
         <p class="text-lg text-gray-600 font-medium">TEACH Scouting Jamboree</p>
     </header>
 
-    <main class="w-full max-w-2xl px-4"> <form id="camping-form" class="space-y-8">
+    <main class="w-full max-w-2xl px-4">
+        <form id="camping-form" class="space-y-8">
 
             <section class="space-y-6">
                 <h2 class="text-2xl sm:text-3xl font-bold pb-2">
@@ -292,7 +296,7 @@
                     3. Kesiapan Fisik & Logistik
                 </h2>
                 <div>
-                    <label for="terakhir_camping" class="block text-sm font-medium mb-1">Kapan terakhir kali melakukan Camping? (Tulis tahunnya)</label>
+                    <label for="terakhir_camping" class="block text-sm font-medium mb-1">Kapan terakhir kali melakukan Kemping? (Tulis tahunnya)</label>
                     <input type="text" id="terakhir_camping" name="terakhir_camping" placeholder="Contoh: 2023" class="ui-input">
                 </div>
                 <div>
@@ -310,15 +314,19 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-2">Pilihan Sesi Kegiatan</label>
-                    <div class="flex flex-wrap gap-4">
+                    <div class="flex flex-wrap gap-4" id="pilihan_sesi_wrapper">
                         <label class="inline-flex items-center">
-                            <input type="radio" name="pilihan_sesi" value="Sesi 1 Hari (PFA)" class="ui-radio" required>
-                            <span class="ml-2 text-gray-700">Sesi 1 Hari (PFA)</span>
+                            <input type="checkbox" name="pilihan_sesi[]" value="Hari 1 (Kemping dan Pembekalan)" class="ui-checkbox" onchange="toggleAlasan()" required>
+                            <span class="ml-2 text-gray-700">Hari 1 (Kemping dan Pembekalan)</span>
                         </label>
                         <label class="inline-flex items-center">
-                            <input type="radio" name="pilihan_sesi" value="Sesi 2 Hari (Termasuk Hiking)" class="ui-radio" required>
-                            <span class="ml-2 text-gray-700">Sesi 2 Hari (Termasuk Hiking)</span>
+                            <input type="checkbox" name="pilihan_sesi[]" value="Hari 2 (Trekking)" class="ui-checkbox" onchange="toggleAlasan()" required>
+                            <span class="ml-2 text-gray-700">Hari 2 (Trekking)</span>
                         </label>
+                    </div>
+                    <div id="alasan_textarea" class="mt-4 hidden">
+                        <label for="alasan_input" class="block text-sm font-medium mb-1">Mohon berikan alasan Anda hanya mengikuti 1 hari</label>
+                        <textarea id="alasan_input" name="alasan" rows="3" class="ui-textarea" placeholder="Tulis alasan Anda di sini..."></textarea>
                     </div>
                 </div>
                 <div>
@@ -333,7 +341,7 @@
                         <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Peralatan Masak" class="ui-checkbox"><span class="ml-2 text-gray-700">Peralatan Masak</span></label>
                         <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Matras" class="ui-checkbox"><span class="ml-2 text-gray-700">Matras</span></label>
                         <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Plysheet" class="ui-checkbox"><span class="ml-2 text-gray-700">Plysheet</span></label>
-                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Meja/Kursi Camping" class="ui-checkbox"><span class="ml-2 text-gray-700">Meja/Kursi Camping</span></label>
+                        <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Meja/Kursi Camping" class="ui-checkbox"><span class="ml-2 text-gray-700">Meja/Kursi Kemping</span></label>
                         <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Tas Carrier" class="ui-checkbox"><span class="ml-2 text-gray-700">Tas Carrier</span></label>
                         <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Ponco/Jas Hujan" class="ui-checkbox"><span class="ml-2 text-gray-700">Ponco/Jas Hujan</span></label>
                         <label class="inline-flex items-center"><input type="checkbox" name="perlengkapan[]" value="Senter" class="ui-checkbox"><span class="ml-2 text-gray-700">Senter</span></label>
@@ -402,6 +410,24 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleAlasan() {
+            const hari1 = document.querySelector('input[value="Hari 1 (Kemping dan Pembekalan)"]');
+            const hari2 = document.querySelector('input[value="Hari 2 (Trekking)"]');
+            const alasanTextarea = document.getElementById('alasan_textarea');
+            const alasanInput = document.getElementById('alasan_input');
+            
+            // Cek jika hanya satu checkbox yang tercentang
+            if ((hari1.checked && !hari2.checked) || (!hari1.checked && hari2.checked)) {
+                alasanTextarea.classList.remove('hidden');
+                alasanInput.setAttribute('required', 'required'); // Wajib diisi
+            } else {
+                alasanTextarea.classList.add('hidden');
+                alasanInput.removeAttribute('required'); // Tidak wajib diisi jika dua-duanya atau tidak ada yang dipilih
+            }
+        }
+    </script>
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>
