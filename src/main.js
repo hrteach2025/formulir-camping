@@ -8,7 +8,7 @@ const errorMessage = document.getElementById('error-message');
 const closeModalBtn = document.getElementById('close-modal-btn');
 const closeErrorModalBtn = document.getElementById('close-error-modal-btn');
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycby5mC-wlfXvOym6wYJjBNoeTVEdrGauEOcretMgViy4cYQnCKU-qjm-2KIj1O4v7dspzQ/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz82obGPK3Pzynw1k0y6lr_i9J4JAGH0sLf-CySu0cmJ2mnU3g7xfST7jerT3ZebXo/exec';
 
 const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbz-W7teqJjK3wIXCetLs4WzbJdBjs59rOHy0cZFJEKD1m0NNGr7iCytV81pCyoEqYzhlw/exec';
 
