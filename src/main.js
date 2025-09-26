@@ -10,7 +10,7 @@ const closeErrorModalBtn = document.getElementById('close-error-modal-btn');
 
 const scriptURL = 'https://script.google.com/macros/s/AKfycbz82obGPK3Pzynw1k0y6lr_i9J4JAGH0sLf-CySu0cmJ2mnU3g7xfST7jerT3ZebXo/exec';
 
-const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbz-W7teqJjK3wIXCetLs4WzbJdBjs59rOHy0cZFJEKD1m0NNGr7iCytV81pCyoEqYzhlw/exec';
+const daftarPesertaURL = 'https://script.google.com/macros/s/AKfycbwZji8gNHnVfgQhT2iO_lFDIhhXPSbvaDOmk9K0EAYST6eLUxP-siQj1gy6QY7ZdBxZ/exec';
 
 const namaLengkapInput = document.getElementById('nama_lengkap');
 const posisiDivisiInput = document.getElementById('posisi_divisi');
